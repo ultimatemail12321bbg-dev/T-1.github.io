@@ -1,6 +1,4 @@
 
-
-
 from flask import Flask, request, jsonify, send_file
 from google import genai
 from google.genai import types
@@ -22,7 +20,11 @@ def css():
         print("CSS ERROR:", error)
         return "CSS error: " + str(error), 500
 
-api_keys = [key.strip() for key in os.getenv("GEMINI_API_KEYS", "").split(",") if key.strip()]
+api_keys = [
+    key.strip()
+    for key in os.getenv("GEMINI_API_KEYS", "").split(",")
+    if key.strip()
+]
 
 current_key = 0
 client = None
