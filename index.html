@@ -1,1 +1,50 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T-1 || Chat</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div id="all">
+
+    <h1>T-1</h1>
+
+    <input type="text" id="Message" placeholder="Ask anything">
+
+    <button onclick="send()">Send</button>
+
+    <p id="Chat"></p>
+
+     </div>
+
+    <script>
+        async function send() {
+            let message = document.getElementById("Message").value;
+            let chat = document.getElementById("Chat");
+
+            chat.innerText = "T-1 is thinking...";
+
+            try {
+                let response = await fetch("/chat", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({message: message})
+                });
+
+                let data = await response.json();
+
+                chat.innerText = "T-1: " + data.reply;
+
+            } catch (error) {
+                chat.innerText = "Connection error!";
+            }
+        }
+    </script>
+
+</body>
+</html>
